@@ -13,16 +13,17 @@ bool continua = true;
 
 while (continua)
 {
-    Console.WriteLine("players selection");
+    Console.WriteLine("Gestore Team e Giocatori");
     Console.WriteLine();
     Console.WriteLine("Seleziona un opzione: ");
-    Console.WriteLine("1.inserisci un team: ");
+    Console.WriteLine("1. Inserisci un team: ");
     Console.WriteLine("2. Inserisci un player:");
 
     Console.WriteLine("3. Ricerca un player per id:");
     Console.WriteLine("4. Modifica nome giocatore per id:");
     Console.WriteLine("5. Cancella un player:");
     Console.WriteLine("6. Esci");
+    Console.WriteLine();
 
     Console.Write("Inserisci l'opzione desiderata: ");
     int response = int.Parse(Console.ReadLine());
@@ -84,14 +85,17 @@ while (continua)
             int idFoundPlayers = Convert.ToInt32(Console.ReadLine());
 
 
-
+            try { 
 
             using (PlayerContext db = new PlayerContext())
             {
                 Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayers).First();
                 Console.WriteLine(playersFound.ToString());
             }
-
+            }catch (Exception ex) 
+            { 
+                Console.WriteLine( "l'id non combacia ");
+            }
 
             break;
 
@@ -105,6 +109,8 @@ while (continua)
             Console.WriteLine("inserisci il nuovo cognome:");
             string newSurname = Console.ReadLine();
 
+
+            try { 
             using (PlayerContext db = new PlayerContext())
             {
                 Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayers2).First();
@@ -119,6 +125,7 @@ while (continua)
 
                 db.SaveChanges();
             }
+            }catch(Exception ex) { Console.WriteLine("spiacente l'id selezionato non combacia"); }
 
             break;
 
@@ -130,27 +137,33 @@ while (continua)
             string nameFoundPlayers = Console.ReadLine();
 
 
-
-
-            using (PlayerContext db = new PlayerContext())
+            try
             {
-          
-                Player playersFound = db.Player.Where(playerScansionato => playerScansionato.Name == nameFoundPlayers).First();
-                
 
-                
-                db.Remove(playersFound);
+                using (PlayerContext db = new PlayerContext())
+                {
 
-                Console.WriteLine("il giocatore:  " + playersFound + "e' stato eliminato");
-                db.SaveChanges();
+                    Player playersFound = db.Player.Where(playerScansionato => playerScansionato.Name == nameFoundPlayers).First();
 
 
+
+                    db.Remove(playersFound);
+
+                    Console.WriteLine("il giocatore:  " + playersFound + "e' stato eliminato");
+                    db.SaveChanges();
+
+
+                }
+            }catch (Exception ex)
+            {
+                Console.WriteLine("il nome selezionato non combacia ");
             }
 
             break;
 
         case 6:
             continua = false;
+            Console.WriteLine("alla prossima arrivederci!");
             break;
 
         default:

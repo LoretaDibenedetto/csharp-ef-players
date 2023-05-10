@@ -26,13 +26,15 @@ namespace ENTITY
         public int  GamesPlayed { get; set; }
        
 
-        public Player( string name, string surname, int score, int gamesPlayed)
+        public Player( string name, string surname, int score, int gamesPlayed,int gamesWon)
         {
             
             Name = name;
             Surname = surname;
             Score = score;
-            gamesPlayed = gamesPlayed;
+            GamesPlayed = gamesPlayed;
+            GamesWon = gamesWon;
+
           
         }
     }

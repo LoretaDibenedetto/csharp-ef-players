@@ -19,13 +19,21 @@ namespace ENTITY
         [MaxLength(50)]
         public string Surname { get; set; }
         [MaxLength (30)]
-        public int Score { get; set; }
-        [MaxLength (50)]
+        public int Score { get; set; } 
+       
         public int  GamesWon{ get; set; }
-        [MaxLength(50)]
+        
         public int  GamesPlayed { get; set; }
        
 
-
+        public Player( string name, string surname, int score, int gamesPlayed)
+        {
+            
+            Name = name;
+            Surname = surname;
+            Score = score;
+            gamesPlayed = gamesPlayed;
+          
+        }
     }
 }

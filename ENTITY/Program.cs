@@ -18,7 +18,7 @@ while (continua)
     Console.WriteLine("Seleziona un opzione: ");
     Console.WriteLine("1. Inserisci un player");
 
-    Console.WriteLine("3. Ricerca un player per id");
+    Console.WriteLine("2. Ricerca un player per id");
 
     Console.WriteLine("5. Cancella un player");
     Console.WriteLine("6. Esci");
@@ -52,7 +52,27 @@ while (continua)
                 db.SaveChanges();
             }
             break;
+        case 2:
 
+            Console.WriteLine("Inserisci l'id del giocatore da trovate : ");
+            int idFoundPlayers = Convert.ToInt32(Console.ReadLine());
+
+
+
+
+            using (PlayerContext db = new PlayerContext())
+            {
+                Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayers).First();
+                Console.WriteLine(playersFound.ToString());
+            }
+
+
+
+
+
+
+
+            break;
 
         case 5:
             continua = false;

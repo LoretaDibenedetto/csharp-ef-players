@@ -20,7 +20,7 @@ while (continua)
 
     Console.WriteLine("2. Ricerca un player per id");
     Console.WriteLine("3. Modifica nome giocatore per id");
-    Console.WriteLine("5. Cancella un player");
+    Console.WriteLine("4. Cancella un player");
     Console.WriteLine("6. Esci");
 
     Console.Write("Inserisci l'opzione desiderata: ");
@@ -93,6 +93,33 @@ while (continua)
                 Console.WriteLine();
 
                 db.SaveChanges();
+            }
+
+            break;
+
+        case 4:
+
+           
+
+            Console.WriteLine("Inserisci il nome del giocatore da cancellare : ");
+            string nameFoundPlayers = Console.ReadLine();
+
+
+
+
+            using (PlayerContext db = new PlayerContext())
+            {
+          
+                Player playersFound = db.Player.Where(playerScansionato => playerScansionato.Name == nameFoundPlayers).First();
+                
+
+                
+                db.Remove(playersFound);
+
+                Console.WriteLine("il giocatore:  " + playersFound + "e' stato eliminato");
+                db.SaveChanges();
+
+
             }
 
             break;

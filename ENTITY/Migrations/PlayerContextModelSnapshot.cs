@@ -30,11 +30,9 @@ namespace ENTITY.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlayerID"));
 
                     b.Property<int>("GamesPlayed")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<int>("GamesWon")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -43,7 +41,6 @@ namespace ENTITY.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Score")
-                        .HasMaxLength(30)
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
@@ -51,9 +48,57 @@ namespace ENTITY.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("PlayerID");
 
+                    b.HasIndex("TeamId");
+
                     b.ToTable("Player");
+                });
+
+            modelBuilder.Entity("ENTITY.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Colors")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Trainer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teamer");
+                });
+
+            modelBuilder.Entity("ENTITY.Player", b =>
+                {
+                    b.HasOne("ENTITY.Team", null)
+                        .WithMany("PlayersList")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ENTITY.Team", b =>
+                {
+                    b.Navigation("PlayersList");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,7 +10,7 @@ namespace ENTITY
     public  class PlayerContext:DbContext
     {
         public DbSet<Player> Player { get; set; }
-
+        public DbSet<Team> Teamer { get; set; } 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

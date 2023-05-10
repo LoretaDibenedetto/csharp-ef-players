@@ -10,7 +10,7 @@ namespace ENTITY
     public class Player
     {
 
-        [Key]
+        
         public int PlayerID { get; set; }
 
 
@@ -18,15 +18,18 @@ namespace ENTITY
         public string Name { get; set; }
         [MaxLength(50)]
         public string Surname { get; set; }
-        [MaxLength (30)]
+       
         public int Score { get; set; } 
        
         public int  GamesWon{ get; set; }
         
         public int  GamesPlayed { get; set; }
-       
 
-        public Player( string name, string surname, int score, int gamesPlayed,int gamesWon)
+
+        public int TeamId { get; set; }
+        //public Team Team { get; set; }
+
+        public Player( string name, string surname, int score, int gamesPlayed,int gamesWon, int teamId)
         {
             
             Name = name;
@@ -34,8 +37,8 @@ namespace ENTITY
             Score = score;
             GamesPlayed = gamesPlayed;
             GamesWon = gamesWon;
+            TeamId = teamId;
 
-          
         }
 
 

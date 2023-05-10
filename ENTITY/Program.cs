@@ -16,11 +16,12 @@ while (continua)
     Console.WriteLine("players selection");
     Console.WriteLine();
     Console.WriteLine("Seleziona un opzione: ");
-    Console.WriteLine("1. Inserisci un player");
+    Console.WriteLine("1.inserisci un team: ");
+    Console.WriteLine("2. Inserisci un player:");
 
-    Console.WriteLine("2. Ricerca un player per id");
-    Console.WriteLine("3. Modifica nome giocatore per id");
-    Console.WriteLine("4. Cancella un player");
+    Console.WriteLine("3. Ricerca un player per id:");
+    Console.WriteLine("4. Modifica nome giocatore per id:");
+    Console.WriteLine("5. Cancella un player:");
     Console.WriteLine("6. Esci");
 
     Console.Write("Inserisci l'opzione desiderata: ");
@@ -29,6 +30,29 @@ while (continua)
     switch (response)
     {
         case 1:
+            Console.Write("Inserisci il nome della squadra: ");
+            string nameTesm = Console.ReadLine();
+
+            Console.Write("Inserisci la citta' della squadra: ");
+            string cityTeam= Console.ReadLine();
+
+            Console.Write("Inserisci il nome del trainer: ");
+            string nameTrainer = Console.ReadLine();
+
+            Console.Write("Inserisci colori del team: ");
+            string colorTeam = Console.ReadLine();
+
+            Team Team1 = new Team(nameTesm, cityTeam, nameTrainer, colorTeam);
+            using (PlayerContext db = new PlayerContext())
+            {
+                db.Add(Team1);
+                db.SaveChanges();
+                Console.WriteLine(Team1.ToString());
+            }
+
+            break;
+
+        case 2:
             Console.Write("Inserisci il nome del giocatore: ");
             string namePlayer = Console.ReadLine();
 
@@ -43,9 +67,10 @@ while (continua)
 
 
             int numGameWin = numGamePlayed -10;
+            Console.WriteLine("inserisci l'id del team del giocatore");
+            int inputIdGamer = int.Parse(Console.ReadLine());
 
-
-            Player player1 = new Player(namePlayer, surnamePlayer, numScore, numGamePlayed, numGameWin);
+            Player player1 = new Player(namePlayer, surnamePlayer, numScore, numGamePlayed, numGameWin, inputIdGamer );
             using (PlayerContext db = new PlayerContext())
             {
                 db.Add(player1);
@@ -53,7 +78,7 @@ while (continua)
                 Console.WriteLine(player1.ToString());
             }
             break;
-        case 2:
+        case 3:
 
             Console.WriteLine("Inserisci l'id del giocatore da trovate : ");
             int idFoundPlayers = Convert.ToInt32(Console.ReadLine());
@@ -70,8 +95,8 @@ while (continua)
 
             break;
 
-            case 3:
-            Console.WriteLine("inserisci l'id del giocatore da eliminare");
+            case 4:
+            Console.WriteLine("inserisci l'id del giocatore da modificare:");
             int idFoundPlayers2 = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("inserisci il nuovo nome:");
@@ -97,7 +122,7 @@ while (continua)
 
             break;
 
-        case 4:
+        case 5:
 
            
 
@@ -124,7 +149,7 @@ while (continua)
 
             break;
 
-        case 5:
+        case 6:
             continua = false;
             break;
 
@@ -134,10 +159,5 @@ while (continua)
     }
 
 
-    //mi ha obbligata ad aggiungerla :(
-    static void main(string[] args)
-{       
-
-  
-    }
+   
 }

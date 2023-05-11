@@ -34,10 +34,13 @@ namespace ENTITY
 
 
             string str = "nome player: " + Name + ", " + " Citta': " + City + ", " + "Allenatore: " + Trainer + ", " + "Colori della squadra: " + Colors + ". " ;
-            str += "                  ";
-
+            str += "\n";
+           
             return str;
 
         }
+
+
+        
     }
 }

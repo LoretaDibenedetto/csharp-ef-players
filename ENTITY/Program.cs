@@ -15,6 +15,7 @@ while (continua)
 {
 
     Console.ForegroundColor = ConsoleColor.Cyan;
+    
     Console.WriteLine();
 
     Console.WriteLine("**======GESTORE TEAM E GIOCATORI======**");
@@ -45,12 +46,16 @@ while (continua)
     Console.WriteLine();
 
     Console.Write("Inserisci l'opzione desiderata: ");
+
     int response = int.Parse(Console.ReadLine());
 
     switch (response)
     {
         case 1:
-            Console.ForegroundColor = ConsoleColor.Green;
+
+
+            Console.ForegroundColor = ConsoleColor.White;
+
 
             Console.Write("Inserisci il nome della squadra: ");
             string nameTesm = Console.ReadLine();
@@ -75,7 +80,9 @@ while (continua)
             break;
 
         case 2:
-            Console.ForegroundColor = ConsoleColor.Blue;
+
+            Console.ForegroundColor = ConsoleColor.White;
+
 
             Console.Write("Inserisci l'id del team da trovate : ");
             int idFoundTeam = Convert.ToInt32(Console.ReadLine());
@@ -97,8 +104,11 @@ while (continua)
             }
 
             break;
+
         case 3:
-            Console.ForegroundColor = ConsoleColor.Magenta;
+
+
+            Console.ForegroundColor = ConsoleColor.White;
 
             Console.Write("Inserisci l'id del team da modificare: ");
             int idFoundTeam2 = Convert.ToInt32(Console.ReadLine());
@@ -130,7 +140,10 @@ while (continua)
 
 
             break;
+
         case 4:
+
+
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.Write("Inserisci il nome del giocatore: ");
@@ -147,7 +160,7 @@ while (continua)
 
 
             int numGameWin = numGamePlayed - 10;
-            Console.Write("Inserisci l'id del team del giocatore");
+            Console.Write("Inserisci l'id del team del giocatore: ");
             int inputIdGamer = int.Parse(Console.ReadLine());
 
             Player player1 = new Player(namePlayer, surnamePlayer, numScore, numGamePlayed, numGameWin, inputIdGamer);
@@ -159,8 +172,10 @@ while (continua)
             }
 
             break;
+
         case 5:
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
+
+            Console.ForegroundColor = ConsoleColor.White;
 
             Console.Write("Inserisci l'id del giocatore da trovate: ");
             int idFoundPlayer = Convert.ToInt32(Console.ReadLine());
@@ -175,14 +190,17 @@ while (continua)
                     Console.WriteLine(playersFound.ToString());
                 }
             } catch (Exception ex)
-            {
-                Console.WriteLine(ex + "L'id non combacia ");
+            {  
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine( "L'id non combacia ");
             }
 
             break;
 
         case 6:
-            Console.ForegroundColor = ConsoleColor.Yellow;
+
+
+            Console.ForegroundColor = ConsoleColor.White;
 
 
             Console.Write("Inserisci l'id del giocatore da modificare:");
@@ -210,13 +228,16 @@ while (continua)
 
                     db.SaveChanges();
                 }
-            } catch (Exception ex) { Console.WriteLine("Spiacente l'id selezionato non combacia"); }
+            } catch (Exception )
+            { 
+                Console.WriteLine("Spiacente l'id selezionato non combacia"); 
+            }
 
             break;
 
         case 7:
 
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.White;
 
 
             Console.WriteLine("Inserisci il nome del giocatore da cancellare: ");
@@ -242,6 +263,7 @@ while (continua)
                 }
             } catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Il nome selezionato non combacia ");
             }
 
@@ -254,7 +276,7 @@ while (continua)
             string UserChoice = Console.ReadLine();
             if(UserChoice.ToUpper() == "N")
             {
-                    
+                try { 
                     Console.WriteLine("Inserisci il nome del giocatore che vuoi cercare:");
                     string namePlayerSearch = Console.ReadLine();
                     using (PlayerContext db = new PlayerContext())
@@ -266,23 +288,33 @@ while (continua)
                         db.SaveChanges();
 
                     }
-                    
+                    }catch(Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("questo giocatore non e' ancora stato implementato nel nostro database!");
+                }
                
             }else if(UserChoice.ToUpper() == "C") 
             {
-                
-                Console.WriteLine("Inserisci il cognome del giocatore che vuoi cercare:");
-                string surnamePlayerSearch = Console.ReadLine();
-                using (PlayerContext db = new PlayerContext())
+                try
                 {
-                    Player playerNameFound = db.Player.Where(player => player.Surname == surnamePlayerSearch).First();
+                    Console.WriteLine("Inserisci il cognome del giocatore che vuoi cercare:");
+                    string surnamePlayerSearch = Console.ReadLine();
+                    using (PlayerContext db = new PlayerContext())
+                    {
+                        Player playerNameFound = db.Player.Where(player => player.Surname == surnamePlayerSearch).First();
 
-                    Console.WriteLine(playerNameFound.ToString());
+                        Console.WriteLine(playerNameFound.ToString());
 
-                    db.SaveChanges();
+                        db.SaveChanges();
 
+                    }
                 }
+                catch {
 
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("questo giocatore non e' ancora stato implementato nel nostro database!");
+                }
 
 
             }
@@ -291,13 +323,15 @@ while (continua)
             break;
         case 9:
     
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Green;
 
             continua = false;
             Console.WriteLine("Alla prossima arrivederci!");
             break;
             
         default:
+            Console.ForegroundColor = ConsoleColor.Red;
+
             Console.WriteLine("Non hai inserito un'opzione valida! Ritenta!");
             break;
     }

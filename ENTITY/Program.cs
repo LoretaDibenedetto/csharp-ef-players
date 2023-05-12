@@ -13,26 +13,35 @@ bool continua = true;
 
 while (continua)
 {
-    
+
     Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine();
+
     Console.WriteLine("**======GESTORE TEAM E GIOCATORI======**");
     Console.WriteLine("= = = = = = = = = = = = = = = = =");
+    Console.WriteLine();
     Console.WriteLine("Seleziona un opzione: ");
     Console.WriteLine("1. Inserisci un team: ");
     Console.WriteLine("2. Ricerca team per id: ");
     Console.WriteLine("3. Apporta delle modifiche al team: ");
+    Console.WriteLine();
+
     Console.WriteLine("= = = = = = = = = = = = = = = = =");
 
+    Console.WriteLine();
 
     Console.WriteLine("4. Inserisci un giocatore: ");
 
     Console.WriteLine("5. Ricerca un giocatore per id: ");
     Console.WriteLine("6. Modifica nome giocatore per id: ");
     Console.WriteLine("7. Cancella un giocatore scrivendo il suo nome: ");
+    Console.WriteLine("8. Cerca giocatore per nome:");
+    Console.WriteLine();
+
     Console.WriteLine("= = = = = = = = = = = = = = = = =");
 
 
-    Console.WriteLine("8. Esci");
+    Console.WriteLine("9. Esci");
     Console.WriteLine();
 
     Console.Write("Inserisci l'opzione desiderata: ");
@@ -47,7 +56,7 @@ while (continua)
             string nameTesm = Console.ReadLine();
 
             Console.Write("Inserisci la citta' della squadra: ");
-            string cityTeam= Console.ReadLine();
+            string cityTeam = Console.ReadLine();
 
             Console.Write("Inserisci il nome del trainer: ");
             string nameTrainer = Console.ReadLine();
@@ -64,7 +73,7 @@ while (continua)
             }
 
             break;
-           
+
         case 2:
             Console.ForegroundColor = ConsoleColor.Blue;
 
@@ -104,8 +113,8 @@ while (continua)
             string newColorTeam = Console.ReadLine();
 
             using (PlayerContext db = new PlayerContext())
-            { Team teamFound = db.Teamer.Where(teamScansionato => teamScansionato.Id == idFoundTeam2).First(); 
-              Console.WriteLine("-Team prima della modifica"+ teamFound.ToString());
+            { Team teamFound = db.Teamer.Where(teamScansionato => teamScansionato.Id == idFoundTeam2).First();
+                Console.WriteLine("-Team prima della modifica" + teamFound.ToString());
 
                 teamFound.Name = newNameTeam;
                 teamFound.Trainer = newTrainerTeam;
@@ -113,14 +122,14 @@ while (continua)
 
 
                 db.SaveChanges();
-                Console.WriteLine("-Team dopo la modifica "+ teamFound.ToString());
+                Console.WriteLine("-Team dopo la modifica " + teamFound.ToString());
 
 
             }
 
 
 
-                break;
+            break;
         case 4:
             Console.ForegroundColor = ConsoleColor.White;
 
@@ -137,41 +146,42 @@ while (continua)
             int numGamePlayed = randnd.Next(10, 100);
 
 
-            int numGameWin = numGamePlayed -10;
+            int numGameWin = numGamePlayed - 10;
             Console.Write("Inserisci l'id del team del giocatore");
             int inputIdGamer = int.Parse(Console.ReadLine());
 
-            Player player1 = new Player(namePlayer, surnamePlayer, numScore, numGamePlayed, numGameWin, inputIdGamer );
+            Player player1 = new Player(namePlayer, surnamePlayer, numScore, numGamePlayed, numGameWin, inputIdGamer);
             using (PlayerContext db = new PlayerContext())
             {
                 db.Add(player1);
                 db.SaveChanges();
                 Console.WriteLine(player1.ToString());
             }
+
             break;
         case 5:
-             Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
 
             Console.Write("Inserisci l'id del giocatore da trovate: ");
             int idFoundPlayer = Convert.ToInt32(Console.ReadLine());
 
 
-            try { 
+            try {
 
-            using (PlayerContext db = new PlayerContext())
+                using (PlayerContext db = new PlayerContext())
+                {
+
+                    Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayer).First();
+                    Console.WriteLine(playersFound.ToString());
+                }
+            } catch (Exception ex)
             {
-            
-                Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayer).First();
-                Console.WriteLine(playersFound.ToString());
-            }
-            }catch (Exception ex) 
-            { 
-                Console.WriteLine( "L'id non combacia ");
+                Console.WriteLine(ex + "L'id non combacia ");
             }
 
             break;
-            
-            case 6:
+
+        case 6:
             Console.ForegroundColor = ConsoleColor.Yellow;
 
 
@@ -185,25 +195,25 @@ while (continua)
             string newSurname = Console.ReadLine();
 
 
-            try { 
-            using (PlayerContext db = new PlayerContext())
-            {
-                Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayers2).First();
-                Console.WriteLine("-Giocatore prima della modifica:  " + playersFound.ToString());
+            try {
+                using (PlayerContext db = new PlayerContext())
+                {
+                    Player playersFound = db.Player.Where(playerScansionato => playerScansionato.PlayerID == idFoundPlayers2).First();
+                    Console.WriteLine("-Giocatore prima della modifica:  " + playersFound.ToString());
 
-                playersFound.Name = newName;
-                playersFound.Surname = newSurname;
+                    playersFound.Name = newName;
+                    playersFound.Surname = newSurname;
 
-                Console.WriteLine("-Giocatore dopo la modifica: " + playersFound.ToString());
+                    Console.WriteLine("-Giocatore dopo la modifica: " + playersFound.ToString());
 
-                Console.WriteLine();
+                    Console.WriteLine();
 
-                db.SaveChanges();
-            }
-            }catch(Exception ex) { Console.WriteLine("Spiacente l'id selezionato non combacia"); }
+                    db.SaveChanges();
+                }
+            } catch (Exception ex) { Console.WriteLine("Spiacente l'id selezionato non combacia"); }
 
             break;
-           
+
         case 7:
 
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -230,7 +240,7 @@ while (continua)
 
 
                 }
-            }catch (Exception ex)
+            } catch (Exception ex)
             {
                 Console.WriteLine("Il nome selezionato non combacia ");
             }
@@ -238,12 +248,55 @@ while (continua)
             break;
 
         case 8:
+           
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("vuoi cercare il giocatore attraverso il suo nome(N) o cognome(C)");
+            string UserChoice = Console.ReadLine();
+            if(UserChoice.ToUpper() == "N")
+            {
+                    
+                    Console.WriteLine("Inserisci il nome del giocatore che vuoi cercare:");
+                    string namePlayerSearch = Console.ReadLine();
+                    using (PlayerContext db = new PlayerContext())
+                    {
+                        Player playerNameFound = db.Player.Where(player => player.Name == namePlayerSearch).First();
+
+                        Console.WriteLine(playerNameFound.ToString());
+
+                        db.SaveChanges();
+
+                    }
+                    
+               
+            }else if(UserChoice.ToUpper() == "C") 
+            {
+                
+                Console.WriteLine("Inserisci il cognome del giocatore che vuoi cercare:");
+                string surnamePlayerSearch = Console.ReadLine();
+                using (PlayerContext db = new PlayerContext())
+                {
+                    Player playerNameFound = db.Player.Where(player => player.Surname == surnamePlayerSearch).First();
+
+                    Console.WriteLine(playerNameFound.ToString());
+
+                    db.SaveChanges();
+
+                }
+
+
+
+            }
+
+
+            break;
+        case 9:
+    
             Console.ForegroundColor = ConsoleColor.Red;
 
             continua = false;
             Console.WriteLine("Alla prossima arrivederci!");
             break;
-
+            
         default:
             Console.WriteLine("Non hai inserito un'opzione valida! Ritenta!");
             break;

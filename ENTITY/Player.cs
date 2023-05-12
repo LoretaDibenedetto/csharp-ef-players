@@ -18,16 +18,17 @@ namespace ENTITY
         public string Name { get; set; }
         [MaxLength(50)]
         public string Surname { get; set; }
-       
-        public int Score { get; set; } 
-       
+
+        [Range(1,10)]
+        public int Score { get; set; }
+        [Range(10,100)]
         public int  GamesWon{ get; set; }
-        
+        [Range(10,100)]
         public int  GamesPlayed { get; set; }
 
 
         public int TeamId { get; set; }
-        //public Team Team { get; set; }
+        public Team Team { get; set; }
 
         public Player( string name, string surname, int score, int gamesPlayed,int gamesWon, int teamId)
         {

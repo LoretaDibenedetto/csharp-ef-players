@@ -43,12 +43,14 @@ while (continua)
 
 
     Console.WriteLine("9. Esci");
+    Console.WriteLine("10. Stampa lista giocatori:");
+    Console.WriteLine("11. Inserisci due squadre e scopri chi ha vinto!");
     Console.WriteLine();
 
     Console.Write("Inserisci l'opzione desiderata: ");
-
+    
     int response = int.Parse(Console.ReadLine());
-
+    
     switch (response)
     {
         case 1:
@@ -328,7 +330,61 @@ while (continua)
             continua = false;
             Console.WriteLine("Alla prossima arrivederci!");
             break;
-            
+
+        case 10:
+
+            using(PlayerContext db = new PlayerContext())
+            {
+                List<Player> playersList = db.Player.FromSqlRaw("SELECT * FROM Player").ToList<Player>();
+                // playersList.ForEach(student => Console.WriteLine(student.ToString()));
+                Player.stampList(playersList);
+            }
+
+            break;
+
+       case 11:
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("inserisci il nome della prima squadra:");
+            string nameUserTeam = Console.ReadLine();
+
+            Console.WriteLine("inserisci il nome della seconda squadra:");
+            string nameUserTeam2 = Console.ReadLine();
+
+            Random randomGAmeNumber = new Random();
+
+            int numGameRandom = randomGAmeNumber.Next(1, 20);
+            try
+            {
+                using (PlayerContext db = new PlayerContext())
+                {
+                    Team teamName1 = db.Teamer.Where(Team => Team.Name == nameUserTeam).First();
+                    Team teamName2 = db.Teamer.Where(Team => Team.Name == nameUserTeam2).First();
+
+                    if (numGameRandom <= 6)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+
+                        Console.WriteLine(teamName1.Name + " ha vinto contro " + teamName2.Name + " "+ teamName1.Trainer + "  e' felice!");
+                    }
+                    else if (numGameRandom >= 12)
+                    {
+                        Console.WriteLine(teamName1.Name + " ha pareggiato contro " + teamName2.Name);
+                    }
+                    else 
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                        Console.WriteLine(teamName2.Name + " ha perso contro " + teamName1.Name + " " + teamName2.Trainer + " e' scontento!");
+
+                    }
+
+
+
+                }
+
+            }catch(Exception ex) { Console.WriteLine("inserisci un nome valido!"); }
+            break;
         default:
             Console.ForegroundColor = ConsoleColor.Red;
 

@@ -33,7 +33,7 @@ namespace ENTITY
         public override string ToString() {
 
 
-            string str = "nome player: " + Name + ", " + " Citta': " + City + ", " + "Allenatore: " + Trainer + ", " + "Colori della squadra: " + Colors + ". " ;
+            string str = "nome team: " + Name + ", " + " Citta': " + City + ", " + "Allenatore: " + Trainer + ", " + "Colori della squadra: " + Colors + ". " ;
             str += "\n";
            
             return str;

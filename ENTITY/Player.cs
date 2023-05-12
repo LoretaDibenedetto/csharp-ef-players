@@ -46,13 +46,20 @@ namespace ENTITY
         public override string ToString()
         { 
             string str = "nome player: " + Name + ", " + " cognome player: " + Surname + ", " + "Punteggio: " + Score + ", " + "partite vinte: " + GamesWon + ", " + "partite giocate: " + GamesPlayed + ". ";
-            str += "                  ";
+           
 
             return str;
         }
 
 
-
+        public static void stampList(List<Player> listPlayer)
+        {
+             foreach (Player player in listPlayer)
+            {
+               Console.WriteLine(player.ToString());
+          
+            }
+        }
 
     }
 }

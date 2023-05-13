@@ -48,9 +48,12 @@ while (continua)
     Console.WriteLine();
 
     Console.Write("Inserisci l'opzione desiderata: ");
-    
+    try { 
     int response = int.Parse(Console.ReadLine());
-    
+   
+
+
+
     switch (response)
     {
         case 1:
@@ -287,7 +290,7 @@ while (continua)
 
                         Console.WriteLine(playerNameFound.ToString());
 
-                        db.SaveChanges();
+                       
 
                     }
                     }catch(Exception ex)
@@ -308,7 +311,7 @@ while (continua)
 
                         Console.WriteLine(playerNameFound.ToString());
 
-                        db.SaveChanges();
+                       
 
                     }
                 }
@@ -385,13 +388,12 @@ while (continua)
 
             }catch(Exception ex) { Console.WriteLine("inserisci un nome valido!"); }
             break;
-        default:
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            Console.WriteLine("Non hai inserito un'opzione valida! Ritenta!");
-            break;
+            default:
+                Console.WriteLine("Riprova!");
+                break;
     }
 
+    }catch (Exception ex) { Console.WriteLine("Digita il carattere corretto!, Riprova"); }
 
-   
+
 }

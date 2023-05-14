@@ -34,7 +34,9 @@ namespace ENTITY
         {
             
             Name = name;
+           
             Surname = surname;
+           
             Score = score;
             GamesPlayed = gamesPlayed;
             GamesWon = gamesWon;

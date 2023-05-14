@@ -36,7 +36,7 @@ while (continua)
     Console.WriteLine("5. Ricerca un giocatore per id: ");
     Console.WriteLine("6. Modifica nome giocatore per id: ");
     Console.WriteLine("7. Cancella un giocatore scrivendo il suo nome: ");
-    Console.WriteLine("8. Cerca giocatore per nome:");
+    Console.WriteLine("8. Cerca giocatore per nome o cognome:");
     Console.WriteLine();
 
     Console.WriteLine("= = = = = = = = = = = = = = = = =");
@@ -67,7 +67,7 @@ while (continua)
                 if (string.IsNullOrEmpty(nameTesm))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Il nuovo nome della squadra non può essere vuoto.");
+                    Console.WriteLine("Il nuovo nome della squadra non può essere un campo vuoto.");
                     break;
                 }
 
@@ -251,7 +251,7 @@ while (continua)
                 }catch(Exception ex)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;   
-                    Console.WriteLine("IMMETTI IL CARATTERE CORRETTO");
+                    Console.WriteLine("digita il carattere corretto!");
                 }
                
             break;
@@ -369,7 +369,7 @@ while (continua)
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("vuoi cercare il giocatore attraverso il suo nome(N) o cognome(C)");
             string UserChoice = Console.ReadLine();
-            if(UserChoice.ToUpper() == "N")
+            if(UserChoice.ToUpper() == "N" )
             {
                 try { 
                     Console.WriteLine("Inserisci il nome del giocatore che vuoi cercare:");
@@ -428,7 +428,14 @@ while (continua)
                 }
 
 
-            }
+            }else if(string.IsNullOrEmpty(UserChoice) ) 
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    Console.WriteLine("il campo non puo' essere vuoto");
+                    break;
+                
+                }
 
 
             break;
@@ -492,12 +499,14 @@ while (continua)
 
             case 10:
 
-            using(PlayerContext db = new PlayerContext())
-            {
-                List<Player> playersList = db.Player.FromSqlRaw("SELECT * FROM Player").ToList<Player>();
-                // playersList.ForEach(student => Console.WriteLine(student.ToString()));
-                Player.stampList(playersList);
-            }
+                Console.ForegroundColor = ConsoleColor.White;
+                using(PlayerContext db = new PlayerContext())
+                {
+
+                        List<Player> playersList = db.Player.FromSqlRaw("SELECT * FROM Player").ToList<Player>();
+                    // playersList.ForEach(student => Console.WriteLine(student.ToString()));
+                    Player.stampList(playersList);
+                }
 
             break;
 
